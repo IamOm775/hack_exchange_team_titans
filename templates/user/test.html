@@ -1,0 +1,36 @@
+addToCartBtn = document.getElementsByClassName('cart');
+    for (var i = 0; i < addToCartBtn.length; i++)
+        addToCartBtn[i].addEventListener('click', updateCartContainer);
+
+    function updateCartContainer(e) {
+        addToCartBtn = e.target;
+        productContainer = addToCartBtn.parentElement;
+        product_logo = productContainer.getElementsByClassName('channellogo')[0].src;
+        product_name = productContainer.getElementsByClassName('channelname')[0].innerText;
+        product_username = productContainer.getElementsByClassName('username')[0].innerText;
+        product_user_id = productContainer.getElementsByClassName('user_id')[0].innerText;
+
+        let lists = localStorage.getItem('lists');
+        if (lists == null) {
+            let products = [];
+            let product = { logo: product_logo, channel_name: product_name, username: product_username, id: product_user_id };
+            products.push(product)
+            console.log('Product has been added for the first time');
+            localStorage.setItem('lists', JSON.stringify(products));
+
+        } else {
+            let pcart = JSON.parse(lists);
+            let oldProduct = pcart.find((item) => item.id == product_user_id)
+            if (oldProduct) {
+                alert('Already exists')
+            } else {
+                let product = { logo: product_logo, channel_name: product_name, username: product_username, id: product_user_id };
+                pcart.push(product)
+                localStorage.setItem('lists', JSON.stringify(pcart));
+                console.log('Product added');
+            }
+
+        }
+        
+    }
+    

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block title %}SignUp- Advertizer{% endblock title %}
+{% block css %}
+<style>
+    .page-heading {
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
+</style>
+
+{% endblock css %}
+{% block body %}
+<div class='container'>
+    <h3 class='page-heading'>SignUp: </h3>
+    <form class="row g-3" action='handle_signup_advertizer' method="POST">{% csrf_token %}
+
+        <div class="mb-1">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name='email' aria-describedby="emailHelp">
+
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationDefault01" class="form-label">Name of the Company</label>
+            <input type="name" class="form-control" id="name" name='name' required>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationDefaultUsername" class="form-label">Username</label>
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                <input type="text" class="form-control" id="validationDefaultUsername"
+                    aria-describedby="inputGroupPrepend2" name='username' required>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationDefault02" class="form-label">Category of Business</label>
+            <select class="form-select" id="validationDefault04" name='category' required>
+                <option selected disabled value="">Choose...</option>
+                <option value='Tech Hardware'>Tech Hardware(Mobile, Headphone....)</option>
+                <option value='Software services'>Software Services</option>
+                <option value='Ecommerce'>Ecommerce</option>
+                <option value='Financial Services'>Financial Services</option>
+                <option value='Hardware'>Hardware</option>
+                <option value='AutoMobiles'>AutoMobiles</option>
+                <option value='Men Fashion'>Men Fashion</option>
+                <option value='Women Fashion'>Women Fashion</option>
+                <option value='Men Cosmetics'>Men Cosmetics</option>
+                <option value='Women Cosmetics'>Women Cosmetics</option>
+                <option value='Child Fashion & Cosmetics'>Child Fashion & Cosmetics</option>
+                <option value='Education'>Education</option>
+                <option value='Non Profit'>Non Profit</option>
+                <option value='Food and Beverages'>Food and Beverages</option>
+                <option value='Food and Beverages'>Gifts & Home decoratives</option>
+                <option value='Sales & Marketing'>Sales & Marketing</option>
+                <option value='Service'>Service</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationDefault01" class="form-label">Phone number</label>
+            <input type="text" class="form-control" id="validationDefault01" name='phno' required>
+        </div>
+
+
+        <div class="mb-1">
+            <label for="exampleInputEmail1" class="form-label">Address</label>
+            <input type="address" class="form-control" id="exampleInputEmail1" name='address' aria-describedby="emailHelp">
+
+        </div>
+
+        <div class="col-md-6">
+            <label for="validationDefault03" class="form-label">City</label>
+            <input type="text" class="form-control" id="validationDefault03" name='city' required>
+        </div>
+        <div class="col-md-3">
+            <label for="validationDefault04" class="form-label">State</label>
+            <select class="form-select" aria-label="Default select example" id='state' name='state' Required>
+                <option value='' selected>Open this select menu</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadra & Nagar Haveli and Daman & Diu">Dadra & Nagar Haveli </option>
+                <option value="Daman & Diu">Daman & Diu </option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat"> Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand"> Jharkhand </option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Madhya Pradesh"> Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="	Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Other">Other</option>
+
+
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="validationDefault05" class="form-label">Zip</label>
+            <input type="text" class="form-control" id="validationDefault05" name='zip' required>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name='password1' required>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name='password2' required>
+        </div>
+
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                <label class="form-check-label" for="invalidCheck2">
+                    Agree to terms and conditions
+                </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}

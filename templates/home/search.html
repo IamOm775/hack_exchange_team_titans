@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% block title %} Search Results{% endblock title %}
+{% block css %}
+<style>
+    body {
+        background: #DCDCDC;
+    }
+
+    .row {
+        margin-top: -10px;
+
+    }
+
+    .card-box {
+        padding: 20px;
+        border-radius: 3px;
+        margin-bottom: 30px;
+        background-color: #fff;
+    }
+
+    .social-links li a {
+        border-radius: 50%;
+        color: rgba(121, 121, 121, .8);
+        display: inline-block;
+        height: 30px;
+        line-height: 27px;
+        border: 2px solid rgba(121, 121, 121, .5);
+        text-align: center;
+        width: 30px
+    }
+
+    .social-links li a:hover {
+        color: #797979;
+        border: 2px solid #797979
+    }
+
+    .thumb-lg {
+        height: 88px;
+        width: 88px;
+    }
+
+    .img-thumbnail {
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .text-pink {
+        color: #ff679b !important;
+    }
+
+    .btn-rounded {
+        border-radius: 2em;
+    }
+
+    .text-muted {
+        color: #98a6ad !important;
+    }
+
+    h4 {
+        line-height: 22px;
+        font-size: 18px;
+    }
+
+    .search-results {
+        padding-top: 20px;
+    }
+
+    .col-lg-4 {
+        display: inline-block;
+    }
+
+    #sort {
+
+        padding-bottom: 10px;
+    }
+
+    #Filter-modal {
+        padding-bottom: 16px;
+        width: 70px;
+    }
+
+    .form-control-info {
+        width: 440px;
+        margin-left: 20px;
+    }
+
+    .form-label {
+        padding-left: 20px;
+    }
+</style>
+
+{% endblock css %}
+{% block body %}
+
+{% load humanize%}
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4"
+                    data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200"
+                    data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i>
+                    <h3 class='search-results'>Search Results:- </h3>
+                </a></div>
+            <!-- end col -->
+        </div>
+
+
+
+        <div class="btn-group" id='sort'>
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+                <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+                <hr>
+                <li><a class="dropdown-item" href="#">Average views: Low to High</a></li>
+                <li><a class="dropdown-item" href="#">Average views: High to Low</a></li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Subscribers: Low to High</a></li>
+                <li><a class="dropdown-item" href="#">Subscribers: High to Low</a></li>
+            </ul>
+        </div>
+
+
+        <!-- Filter Modal -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" id='Filter-modal'
+            data-bs-target="#Filtermodal">
+            Filter
+        </button>
+
+        <!--Filter Modal -->
+        <form>
+            <div class="modal fade" id="Filtermodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 my-3">
+                                <label for="exampleInputEmail1" class="form-label-danger">Category</label>
+                                <select class="form-select-info" aria-label="Default select example" id='category'
+                                    name='category'>
+                                    <option value='' selected>Open this select menu</option>
+                                    <option value="Film and Animations">Film and Animations</option>
+                                    <option value="Autos & Vehicles">Autos & Vehicles</option>
+                                    <option value="Pets & Animals">Pets & Animals</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Travel & Events">Travel & Events</option>
+                                    <option value="Gaming">Gaming</option>
+                                    <option value="People & Blog">People & Blog</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="News & Politics">News & Politics </option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Howto">Howto</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Science & Technology">Science & Technology</option>
+                                    <option value="Non Profits & Activism">Non Profits & Activism</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> Minimum Views</label>
+                            <input type="text" class="form-control-info" id="min_views" name='min_views'
+                                aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Minimum Subscribers</label>
+                            <input type="text" class="form-control-info" id="min_subs" name='min_subs'
+                                aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Maximum budget</label>
+                            <input type="text" class="form-control-info" id="max_budget" name='max_budget'
+                                aria-describedby="emailHelp">
+                        </div>
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <!-- end row -->
+        <div class="row">
+
+
+
+
+
+
+
+
+
+            {% for i in influencers %}
+            <div class="col-lg-4">
+                <div class="text-center card-box">
+                    <div class="member-card pt-2 productContainer pb-2">
+                        <div class="thumb-lg member-thumb  mx-auto"><img src="{{i.logo_low}}"
+                                class="rounded-circle channellogo img-thumbnail" alt="profile-image"></div>
+                        <div class="">
+                            <h4 class='channelname'>{{i.channel_name}}</h4>
+                            <p class='user_id' hidden>{{i.user_id}}</p>
+                            <p class='username' hidden>{{i.username}}</p>
+                            <p class="text-muted">@Category <span>| </span><span><a href="#"
+                                        class="text-pink">{{i.category}}</a></span></p>
+                        </div>
+                        <ul class="social-links list-inline">
+                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                    class="tooltips" href="" data-original-title="Facebook"><i
+                                        class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                    class="tooltips" href="" data-original-title="Twitter"><i
+                                        class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                    class="tooltips" href="" data-original-title="Instagram"><i
+                                        class="fa fa-instagram"></i></a></li>
+                        </ul>
+
+
+
+
+
+
+
+                        <button type="button" id='{{i.user_id}}'
+                        class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light" 
+                        onclick="add_to_cart('{{i.user_id}}', '{{i.channel_name}}', '{{i.logo_low}}', '{{i.username}}')">
+                            Add to List</button>
+                        <button type="button"
+                            class="btn btn-outline-success mt-3 btn-rounded waves-effect w-md waves-light">View
+                            Profile</button>
+                        <div class="mt-4">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="mt-3">
+                                        <h4>{{i.total_subs| intword}}</h4>
+                                        <p class="mb-0 text-muted">Total Subscribers</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mt-3">
+                                        <h4>{{i.avg_views| intword}}</h4>
+                                        <p class="mb-0 text-muted">Average views</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mt-3">
+                                        <h4>{{i.total_videos}}</h4>
+                                        <p class="mb-0 text-muted">Total Videos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+            <!-- end row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-right">
+                        <ul class="pagination pagination-split mt-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
+                                        aria-hidden="true">«</span> <span class="sr-only">Previous</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
+                                        aria-hidden="true">»</span> <span class="sr-only">Next</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- container -->
+    </div>
+</div>
+
+
+{% endblock body %}
+

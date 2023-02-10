@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Save your List{% endblock title %}
+{% block css%}
+<style>
+    #my-card-form {
+        margin-top: 90px;
+    }
+</style>
+{%endblock css%}
+{% block body %}
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+    <!--Influencer Details-->
+
+            <h3 class='checkout-heading my-2'>Influencers You chose:</h3>
+            <div class="card my-5" style="width: 30rem;">
+                <div class="card-body">
+                    <div class='cart-body'></div>
+                </div>
+            </div>
+        </div>
+
+    <!--Checkout page detais-->
+        <div class="col">
+            <div class="card " id='my-card-form' style="width: 30rem;">
+                <div style="height: 10px; background-color:red;"></div>
+                <h3 class='checkout-heading my-2 mx-3'>Please fill the details:</h3>
+                <ul>
+                    <div class="row g-3 align-items-center"> 
+                        <form method="POST" action= /client/savecart> {% csrf_token %}
+                            <input type="hidden" id='allmyinfluencers' name='allmyinfluencers'>
+                        <label for="inputPassword6" class="col-form-label mx-5"><b>
+                                <li>Name of the List</li>
+                            </b></label>
+
+                        <div class="col-auto">
+                            <input type="text" id="listname" class="form-control mx-5" name='listname' style="margin-top: -10px; width: 300px;"
+                                aria-describedby="passwordHelpInline">
+                        </div>
+
+                        <label for="inputPassword6" class="col-form-label mx-5"><b>
+                                <li> Name of the Campaign</li>
+                            </b></label>
+
+                        <div class="col-auto">
+                            <input type="text" id="campaignname" name='campaignname' class="form-control mx-5" style="margin-top: -10px; width: 300px;"
+                                aria-describedby="passwordHelpInline">
+                        </div>
+
+
+
+                    </div>
+                </ul>
+                <button type="submit" class="btn btn-primary" style="width: 100px; margin-left: 80px;">Submit</button>
+
+            </form>
+                <div class="mt-5" style="height: 10px; background-color:red;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    
+
+
+
+
+    {% endblock body %}
